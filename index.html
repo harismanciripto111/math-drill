@@ -12,70 +12,98 @@
     <header class="header">
       <h1>Math Drill</h1>
       <div class="streak-box">
-        <span class="streak-ico">🔥</span>
+        <span class="streak-icon">&#128293;</span>
         <span id="streak-count">0</span>
         <span class="streak-label">hari streak</span>
       </div>
     </header>
 
-    <section class="stats-bar">
-      <div class="stat"><span class="stat-val" id="stat-sessions">0</span><span class="stat-lbl">Sesi</span></div>
-      <div class="stat"><span class="stat-val" id="stat-correct">0</span><span class="stat-lbl">Benar</span></div>
-      <div class="stat"><span class="stat-val" id="stat-accuracy">0%</span><span class="stat-lbl">Akurasi</span></div>
-      <div class="stat"><span class="stat-val" id="stat-streak">0</span><span class="stat-lbl">Streak</span></div>
-    </section>
-
     <section class="timer-section">
-      <div id="timer-label" class="timer-label">Sesi Kerja</div>
-      <div id="timer-display" class="timer-display">25:00</div>
-      <div class="timer-bar-wrap"><div id="timer-bar" class="timer-bar"></div></div>
-    </section>
-
-    <section class="controls-section">
-      <div class="ops-group">
-        <label><input type="checkbox" value="add" checked /> Tambah (+)</label>
-        <label><input type="checkbox" value="sub" checked /> Kurang (-)</label>
-        <label><input type="checkbox" value="mul" /> Kali (×)</label>
-        <label><input type="checkbox" value="div" /> Bagi (÷)</label>
+      <div class="timer-label" id="timer-label">Sesi Kerja</div>
+      <div class="timer-display" id="timer-display">25:00</div>
+      <div class="timer-bar-wrap">
+        <div class="timer-bar" id="timer-bar"></div>
       </div>
-      <div class="level-group">
-        <button class="level-btn active" data-level="easy">Mudah</button>
-        <button class="level-btn" data-level="medium">Sedang</button>
-        <button class="level-btn" data-level="hard">Susah</button>
+      <div class="timer-controls">
+        <button id="btn-start" class="btn btn-primary">Mulai</button>
+        <button id="btn-pause" class="btn btn-secondary" disabled>Pause</button>
+        <button id="btn-reset" class="btn btn-ghost">Reset</button>
+      </div>
+      <div class="session-info">
+        <span>Sesi ke-<strong id="session-count">1</strong></span>
+        <span>Soal dijawab: <strong id="questions-answered">0</strong></span>
+        <span>Benar: <strong id="correct-count">0</strong></span>
       </div>
     </section>
 
-    <section id="drill-area" class="drill-area hidden">
-      <div id="question-card" class="question-card">
-        <div id="question-text" class="question-text">?</div>
-        <input id="answer-input" class="answer-input" type="number" placeholder="Jawaban..." autocomplete="off" />
-        <button id="btn-submit" class="btn btn-submit">Cek →</button>
-        <div id="feedback" class="feedback"></div>
-      </div>
-      <div class="session-score">Benar sesi ini: <span id="session-score">0</span> / <span id="session-total">0</span></div>
-    </section>
-
-    <div class="btn-row">
-      <button id="btn-start" class="btn btn-primary">Mulai Sesi</button>
-      <button id="btn-pause" class="btn btn-secondary hidden">Jeda</button>
-      <button id="btn-reset" class="btn btn-danger">Reset</button>
-    </div>
-  </div>
-
-  <!-- Break Modal -->
-  <div id="break-modal" class="modal hidden">
-    <div class="modal-box">
-      <h2>Waktu Istirahat!</h2>
-      <p>Sesi selesai. Istirahat <span id="break-countdown">5:00</span></p>
-      <div class="timer-bar-wrap"><div id="break-bar" class="timer-bar break-bar"></div></div>
-      <div class="modal-btns">
-        <button id="btn-continue" class="btn btn-primary">Lanjut Sesi Berikutnya</button>
-        <button id="btn-stop" class="btn btn-danger">Stop, Udah Cukup</button>
+    <div class="modal-overlay" id="break-modal" hidden>
+      <div class="modal">
+        <div class="modal-emoji">&#9749;</div>
+        <h2>Waktu Istirahat!</h2>
+        <p>Sesi kerja selesai. Istirahat dulu <strong>5 menit</strong> ya.</p>
+        <div class="modal-timer" id="break-timer">5:00</div>
+        <div class="modal-timer-bar-wrap">
+          <div class="modal-timer-bar" id="break-timer-bar"></div>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-continue" class="btn btn-primary">Lanjut Sesi Berikutnya</button>
+          <button id="btn-stop" class="btn btn-ghost">Stop, Udah Cukup</button>
+        </div>
       </div>
     </div>
-  </div>
 
+    <div class="modal-overlay" id="done-modal" hidden>
+      <div class="modal">
+        <div class="modal-emoji">&#127881;</div>
+        <h2>Mantap!</h2>
+        <p id="done-summary"></p>
+        <button id="btn-restart" class="btn btn-primary">Mulai Lagi</button>
+      </div>
+    </div>
+
+    <section class="drill-section" id="drill-section">
+      <div class="op-selector">
+        <span class="op-label">Operasi:</span>
+        <label><input type="checkbox" value="+" checked /> Tambah (+)</label>
+        <label><input type="checkbox" value="-" checked /> Kurang (-)</label>
+        <label><input type="checkbox" value="x" checked /> Kali (x)</label>
+        <label><input type="checkbox" value="/" /> Bagi (/)</label>
+      </div>
+      <div class="difficulty-selector">
+        <span class="op-label">Level:</span>
+        <label><input type="radio" name="difficulty" value="easy" checked /> Mudah (1-10)</label>
+        <label><input type="radio" name="difficulty" value="medium" /> Sedang (1-20)</label>
+        <label><input type="radio" name="difficulty" value="hard" /> Susah (1-50)</label>
+      </div>
+      <div class="question-card" id="question-card">
+        <div class="question-text" id="question-text">Tekan <strong>Mulai</strong> untuk memulai sesi!</div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+      <form class="answer-form" id="answer-form" autocomplete="off">
+        <input type="number" id="answer-input" class="answer-input" placeholder="Jawaban kamu..." disabled />
+        <button type="submit" class="btn btn-primary" id="btn-submit" disabled>Jawab</button>
+      </form>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-total-sessions">0</div>
+          <div class="stat-desc">Total Sesi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-total-correct">0</div>
+          <div class="stat-desc">Total Benar</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-accuracy">0%</div>
+          <div class="stat-desc">Akurasi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-streak">0</div>
+          <div class="stat-desc">Hari Streak</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
   <script src="app.js"></script>
-  <script src="splash-cursor.js"></script>
 </body>
 </html>
