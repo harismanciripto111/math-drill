@@ -9,9 +9,8 @@
 <body>
   <div class="container">
 
-    <!-- HEADER -->
     <header class="header">
-      <h1>&#9998; Math Drill</h1>
+      <h1>Math Drill</h1>
       <div class="streak-box">
         <span class="streak-icon">&#128293;</span>
         <span id="streak-count">0</span>
@@ -19,7 +18,6 @@
       </div>
     </header>
 
-    <!-- POMODORO TIMER -->
     <section class="timer-section">
       <div class="timer-label" id="timer-label">Sesi Kerja</div>
       <div class="timer-display" id="timer-display">25:00</div>
@@ -38,7 +36,6 @@
       </div>
     </section>
 
-    <!-- BREAK MODAL -->
     <div class="modal-overlay" id="break-modal" hidden>
       <div class="modal">
         <div class="modal-emoji">&#9749;</div>
@@ -55,7 +52,6 @@
       </div>
     </div>
 
-    <!-- DONE MODAL -->
     <div class="modal-overlay" id="done-modal" hidden>
       <div class="modal">
         <div class="modal-emoji">&#127881;</div>
@@ -65,7 +61,6 @@
       </div>
     </div>
 
-    <!-- DRILL SECTION -->
     <section class="drill-section" id="drill-section">
       <div class="op-selector">
         <span class="op-label">Operasi:</span>
@@ -74,30 +69,20 @@
         <label><input type="checkbox" value="x" checked /> Kali (x)</label>
         <label><input type="checkbox" value="/" /> Bagi (/)</label>
       </div>
-
       <div class="difficulty-selector">
         <span class="op-label">Level:</span>
         <label><input type="radio" name="difficulty" value="easy" checked /> Mudah (1-10)</label>
         <label><input type="radio" name="difficulty" value="medium" /> Sedang (1-20)</label>
         <label><input type="radio" name="difficulty" value="hard" /> Susah (1-50)</label>
       </div>
-
       <div class="question-card" id="question-card">
         <div class="question-text" id="question-text">Tekan <strong>Mulai</strong> untuk memulai sesi!</div>
         <div class="feedback" id="feedback"></div>
       </div>
-
       <form class="answer-form" id="answer-form" autocomplete="off">
-        <input
-          type="number"
-          id="answer-input"
-          class="answer-input"
-          placeholder="Jawaban kamu..."
-          disabled
-        />
+        <input type="number" id="answer-input" class="answer-input" placeholder="Jawaban kamu..." disabled />
         <button type="submit" class="btn btn-primary" id="btn-submit" disabled>Jawab</button>
       </form>
-
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-num" id="stat-total-sessions">0</div>
