@@ -139,9 +139,9 @@ function resetTimer() {
   totalSeconds = WORK_SECONDS;
   sessionCount = 1;
   sessionAnswered = 0;
-  sessionCorrect = 0;
+  sessionCorrect  = 0;
   questionActive = false;
-  currentAnswer = null;
+  currentAnswer  = null;
   sessionCountEl.textContent = sessionCount;
   questionsAns.textContent   = sessionAnswered;
   correctCountEl.textContent = sessionCorrect;
